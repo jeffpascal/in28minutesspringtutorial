@@ -3,6 +3,11 @@ package com.in28minutes.rest.webservices.user;
 import java.util.Date;
 
 public class User {
+	
+	/*protected User() {
+		
+	}*/
+	
 	public User(Integer id, String name, Date birthDate) {
 		super();
 		this.id = id;
