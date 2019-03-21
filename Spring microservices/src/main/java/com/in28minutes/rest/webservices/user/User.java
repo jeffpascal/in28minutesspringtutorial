@@ -1,6 +1,10 @@
 package com.in28minutes.rest.webservices.user;
 
 import java.util.Date;
+import java.util.LinkedList;
+
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 public class User {
 	
@@ -16,7 +20,12 @@ public class User {
 	}
 
 	private Integer id;
+	
+	//size validaiton
+	@Size(min=2, message = "Name should have at least 2 characters")
 	private String name;
+	//date must be in the past
+	@Past
 	private Date birthDate;
 
 	public Integer getId() {
@@ -47,4 +56,11 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", birthDate=" + birthDate + "]";
 	}
+
+	public LinkedList<Post> getPosts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }
