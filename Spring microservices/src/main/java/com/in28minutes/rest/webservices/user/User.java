@@ -3,12 +3,16 @@ package com.in28minutes.rest.webservices.user;
 import java.util.Date;
 import java.util.LinkedList;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "All details about the user")
+@Entity
 public class User {
 	
 	/*protected User() {
@@ -21,7 +25,13 @@ public class User {
 		this.name = name;
 		this.birthDate = birthDate;
 	}
-
+	
+	public User() {
+		
+	}
+	
+	@Id  //make it primary key
+	@GeneratedValue
 	private Integer id;
 	
 	//size validaiton
