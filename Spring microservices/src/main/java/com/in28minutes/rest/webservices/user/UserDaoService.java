@@ -49,8 +49,5 @@ public class UserDaoService {
 		return null;
 	}
 	
-	public LinkedList<Post> getPostById(User user) {
-		return user.getPosts();
-	}
 
 }

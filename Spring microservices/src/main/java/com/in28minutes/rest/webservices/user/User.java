@@ -2,10 +2,12 @@ package com.in28minutes.rest.webservices.user;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
@@ -34,6 +36,17 @@ public class User {
 	@GeneratedValue
 	private Integer id;
 	
+	@OneToMany(mappedBy="user") //the name of the class its mapping
+	private List<Post> posts;
+	
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+
 	//size validaiton
 	@ApiModelProperty(notes="At least 2 characters")
 	@Size(min=2, message = "Name should have at least 2 characters")
@@ -72,10 +85,7 @@ public class User {
 		return "User [id=" + id + ", name=" + name + ", birthDate=" + birthDate + "]";
 	}
 
-	public LinkedList<Post> getPosts() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	
 }

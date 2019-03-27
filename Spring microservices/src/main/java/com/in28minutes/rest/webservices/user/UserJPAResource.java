@@ -82,5 +82,15 @@ public class UserJPAResource { //UserController
 		//<201 CREATED Created,[Location:"http://localhost:8080/users/4"]>
 		return ResponseEntity.created(location).build();
 	}
+	
+	@GetMapping("/jpa/user/{id}/posts")
+	public List<Post> retrieveAllPostsId(@PathVariable int id) {
+		Optional<User> findById = userRepository.findById(id);
+		
+		if(!findById.isPresent())
+			throw new UserNotFoundException("id-" + id);
+		
+		return findById.get().getPosts();
+	}
 }
 ;

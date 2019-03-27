@@ -2,19 +2,26 @@ package com.in28minutes.rest.webservices.user;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
 public class Post {
+	@Id
+	@GeneratedValue
 	private int id;
 	private String content;
-	private Date date;
-	public Post(int id, String content, Date date) {
-		super();
-		this.id = id;
-		this.content = content;
-		this.date = date;
-	}
-	@Override
-	public String toString() {
-		return "Post [id=" + id + ", content=" + content + ", date=" + date + "]";
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	//@JsonIgnore
+	private User user;
+	
+	public Post() {
 	}
 	public int getId() {
 		return id;
@@ -28,11 +35,16 @@ public class Post {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getDate() {
-		return date;
+	public Post(int id, String content, User user) {
+		super();
+		this.id = id;
+		this.content = content;
+		this.user = user;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	@Override
+	public String toString() {
+		return "Post [id=" + id + ", content=" + content + ", user=" + user + "]";
 	}
+	
 	
 }
