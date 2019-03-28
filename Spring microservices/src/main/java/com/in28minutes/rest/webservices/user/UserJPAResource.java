@@ -22,7 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 public class UserJPAResource { //UserController
 
 	@Autowired
-	private UserDaoService service;
+	private PostRepository postRepository;
 	@Autowired
 	private UserRepository userRepository;
 	// GET /users
@@ -91,6 +91,36 @@ public class UserJPAResource { //UserController
 			throw new UserNotFoundException("id-" + id);
 		
 		return findById.get().getPosts();
+	}
+	
+	
+	
+	//@Requestbody means that the content of the post will be in the body of the request
+	@PostMapping("/jpa/users/{id}/posts")
+	public ResponseEntity<Object> createPost(@PathVariable int id, @RequestBody Post post){
+
+		Optional<User> findById = userRepository.findById(id);
+		
+		if(!findById.isPresent())
+			throw new UserNotFoundException("id-" + id);
+		//CREATED
+		// /user/user.getId
+		//http://localhost:8080/users/4
+		
+		User user = findById.get();
+		
+		post.setUser(user);
+		
+		postRepository.save(post);
+		
+		URI location = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(post.getId())
+				.toUri();
+		
+		//<201 CREATED Created,[Location:"http://localhost:8080/users/4"]>
+		return ResponseEntity.created(location).build();
 	}
 }
 ;
