@@ -112,7 +112,7 @@ public class UserJPAResource { //UserController
 		post.setUser(user);
 		
 		postRepository.save(post);
-		
+			
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("/{id}")
