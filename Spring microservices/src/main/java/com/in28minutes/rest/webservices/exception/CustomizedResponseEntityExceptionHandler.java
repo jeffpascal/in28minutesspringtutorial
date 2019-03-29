@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.in28minutes.rest.webservices.user.PostNotFoundException;
 import com.in28minutes.rest.webservices.user.UserNotFoundException;
 
 @ControllerAdvice //methods to be shared across multiple controller classes
@@ -32,6 +33,15 @@ extends ResponseEntityExceptionHandler {
 
 
 		return new ResponseEntity<Object>(exceptionResponse, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(PostNotFoundException.class)
+	public final ResponseEntity<Object> handlePostNotFoundException(PostNotFoundException e, WebRequest request)throws Exception{
+
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), e.getMessage(), request.getDescription(false));
+		
+		return new ResponseEntity<Object>(exceptionResponse, HttpStatus.NOT_FOUND);
+		
 	}
 	
 	@Override

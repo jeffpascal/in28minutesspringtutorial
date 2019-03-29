@@ -90,6 +90,9 @@ public class UserJPAResource { //UserController
 		if(!findById.isPresent())
 			throw new UserNotFoundException("id-" + id);
 		
+		if(findById.get().getPosts() == null)
+			throw new PostNotFoundException("User has no posts");
+		
 		return findById.get().getPosts();
 	}
 	
